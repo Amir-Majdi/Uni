@@ -1,0 +1,48 @@
+classDiagram
+    class App {
+        +main(String[] args)$ void
+        -createCustomCharacter(Scanner scanner, String characterRole)$ Character
+        -allocateStat(Scanner scanner, String statName, int remainingPoints)$ int
+    }
+
+    class Character {
+        -String name
+        -int health
+        -int strength
+        -int defense
+        -int intelligence
+        -boolean isAlive
+        +Character(String name, int health, int strength, int defense, int intelligence)
+        +getName() String
+        +isAlive() boolean
+        +getHealth() int
+        +attack(Character target, BattleLog log) void
+        +takeDamage(int damage, BattleLog log) void
+        +defend(BattleLog log) void
+        +resetDefense(int originalDefense) void
+        +displayHealth() void
+    }
+
+    class Team {
+        -String name
+        -ArrayList<Character> members
+        +Team(String name)
+        +addMember(Character character) void
+        +hasAliveMembers() boolean
+        -hasAliveMembers(int index) boolean
+        +getFirstAliveMember() Character
+        -getFirstAliveMember(int index) Character
+    }
+
+    class BattleLog {
+        -ArrayList<String> moves
+        +BattleLog()
+        +addMove(String move) void
+        +saveToFile(String filename) void
+    }
+
+    App ..> Character : creates
+    App ..> Team : creates
+    App ..> BattleLog : creates
+    Team o-- Character : contains
+    Character ..> BattleLog : uses
